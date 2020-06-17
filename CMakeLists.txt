@@ -22,7 +22,7 @@ if(NOT CMAKE_BUILD_TYPE)
 endif()
 
 add_compile_options(-Wall -Wextra -std=gnu99)
-set(CMAKE_C_FLAGS_RELEASE "-O2 -DNDEBUG")
+set(CMAKE_C_FLAGS_RELEASE "-O2 -DNDEBUG -fstack-protector-strong --param=ssp-buffer-size=4 -fPIE -fdata-sections -ffunction-sections -DFORTIFY_SOURCE=2")
 set(CMAKE_C_FLAGS_PACKAGE "-g -O2 -DNDEBUG")
 set(CMAKE_C_FLAGS_DEBUG   "-g -O0 -DDEBUG")
 
@@ -184,6 +184,8 @@ target_link_libraries(netopeer2-server ${SYSREPO_LIBRARIES})
 include_directories(${SYSREPO_INCLUDE_DIRS})
 list(APPEND CMAKE_REQUIRED_INCLUDES ${SYSREPO_INCLUDE_DIRS})
 list(APPEND CMAKE_REQUIRED_LIBRARIES ${SYSREPO_LIBRARIES})
+
+set(CMAKE_EXE_LINKER_FLAGS "-pie -Wl,--gc-sections")
 
 # generate files
 configure_file("${PROJECT_SOURCE_DIR}/src/config.h.in" "${PROJECT_BINARY_DIR}/config.h" ESCAPE_QUOTES @ONLY)
