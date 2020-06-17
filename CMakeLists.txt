@@ -185,7 +185,7 @@ include_directories(${SYSREPO_INCLUDE_DIRS})
 list(APPEND CMAKE_REQUIRED_INCLUDES ${SYSREPO_INCLUDE_DIRS})
 list(APPEND CMAKE_REQUIRED_LIBRARIES ${SYSREPO_LIBRARIES})
 
-set(CMAKE_EXE_LINKER_FLAGS "-pie -Wl,--gc-sections")
+set(CMAKE_EXE_LINKER_FLAGS "-pie -Wl,--gc-sections -Wl,-z,relro,-z,now")
 
 # generate files
 configure_file("${PROJECT_SOURCE_DIR}/src/config.h.in" "${PROJECT_BINARY_DIR}/config.h" ESCAPE_QUOTES @ONLY)
